@@ -1,14 +1,33 @@
-# Fichiers sensibles à ne pas versionner
-/.env
-/.env.local
-/.env.*.local
+# Fichiers d'environnement sensibles
+.env.local
+.env.local.php
+.env.*.local
 
-# Dossiers de dev/IDE
-/.vscode
-.DS_Store
+# Secrets de prod Symfony
+/config/secrets/prod/prod.decrypt.private.php
 
-# Caches, logs, données locales
+# Bundles et assets générés
+/public/bundles/
+/public/assets/
+/assets/vendor/
+
+# Dossiers de cache, logs, données locales
 /var/
 /logs/
 /data/
 /buildtest
+
+# Vendor (sera regénéré par Composer sur Vercel ou ailleurs)
+/vendor/
+
+# Fichiers système et IDE
+.DS_Store
+.vscode
+
+# PHPUnit et outils d'analyse
+.phpunit.result.cache
+/phpunit.xml
+phpstan.neon
+
+# Autres fichiers temporaires
+/build/
