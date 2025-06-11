@@ -1,8 +1,14 @@
+# Fichiers sensibles à ne pas versionner
 /.env
+/.env.local
+/.env.*.local
+
+# Dossiers de dev/IDE
 /.vscode
-/config/*
-/data/*
-/logs/*
-/www/**
 .DS_Store
+
+# Caches, logs, données locales
+/var/
+/logs/
+/data/
 /buildtest

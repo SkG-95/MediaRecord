@@ -1,0 +1,81 @@
+{# templates/partials/footer.html.twig #}
+<style>
+    #site-footer {
+        background: #23272b;
+        color: #fff;
+        font-size: 1.05rem;
+        letter-spacing: 0.01em;
+        border-top: 4px solid #6f42c1;
+    }
+    #site-footer h5 {
+        color: #6f42c1;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        letter-spacing: 0.03em;
+    }
+    #site-footer a {
+        color: #d1d1d1;
+        text-decoration: none;
+        transition: color 0.15s;
+    }
+    #site-footer a:hover {
+        color: #6f42c1;
+        text-decoration: underline;
+    }
+    #site-footer .footer-logo {
+        height: 40px;
+        margin-bottom: 1rem;
+    }
+    #site-footer .social-icons a {
+        display: inline-block;
+        margin-right: 12px;
+        color: #d1d1d1;
+        font-size: 1.4rem;
+        transition: color 0.15s;
+    }
+    #site-footer .social-icons a:hover {
+        color: #6f42c1;
+    }
+    #site-footer hr {
+        border-color: #444;
+    }
+</style>
+
+<footer id="site-footer" class="py-4 w-100 mt-auto">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-4 mb-4 mb-md-0">
+                <img src="{{ asset('images/Logo-MediaRecord.jpg') }}" alt="MediaRecord" class="footer-logo d-block">
+                <p class="text-muted mb-2">Votre plateforme pour suivre vos films et séries préférés.</p>
+                <div class="social-icons mt-3">
+                    <a href="#" title="Twitter"><i class="bi bi-twitter"></i></a>
+                    <a href="#" title="Instagram"><i class="bi bi-instagram"></i></a>
+                    <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
+                    <a href="#" title="Github"><i class="bi bi-github"></i></a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4 mb-md-0">
+                <h5>Liens rapides</h5>
+                <ul class="list-unstyled">
+                    <li><a href="{{ path('app_home') }}">Accueil</a></li>
+                    <li><a href="{{ path('app_search') }}">Recherche</a></li>
+                        <li><a href="{{ path('app_login') }}">Connexion</a></li>
+                        <li><a href="{{ path('app_register') }}">Inscription</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h5>Légal</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">Mentions légales</a></li>
+                    <li><a href="#">Politique de confidentialité</a></li>
+                    <li><a href="#">CGU</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <div class="text-center pt-2">
+            <p class="mb-1">&copy; {{ "now"|date("Y") }} MediaRecord. Tous droits réservés.</p>
+            <small class="text-muted">Propulsé par l'API TMDB</small>
+        </div>
+    </div>
+</footer>

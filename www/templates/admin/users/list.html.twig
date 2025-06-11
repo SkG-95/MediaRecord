@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des utilisateurs{% endblock %}
+
+{% block body %}
+<h1>Gestion des utilisateurs</h1>
+
+<table class="table table-striped" id="usersTable">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom d'utilisateur</th>
+            <th>Email</th>
+            <th>Rôles</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.roles|join(', ') }}</td>
+                <td>
+                    <a href="{{ path('admin_users_edit', {id: user.id}) }}" class="btn btn-sm btn-primary">Modifier</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+<script>
+    $(document).ready(function() {
+        $('#usersTable').DataTable();
+    });
+</script>
+
+<style>
+    #usersTable thead th {
+        color: #fff;
+        background: #23272b;
+        border-bottom: 2px solid #6f42c1;
+    }
+    #usersTable tbody td {
+        color: #fff !important;
+        background: #23272b !important;
+    }
+    #usersTable tbody tr {
+        border-bottom: 1px solid #6f42c1;
+    }
+    .btn-primary {
+        background: linear-gradient(90deg,#6f42c1,#1ed5a9);
+        border: none;
+    }
+    .btn-primary:hover {
+        background: linear-gradient(90deg,#1ed5a9,#6f42c1);
+    }
+</style>
+{% endblock %}
+

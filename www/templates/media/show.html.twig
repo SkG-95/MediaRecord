@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+    .movie-banner {
+        position: relative;
+        background: url('https://image.tmdb.org/t/p/original{{ movie.posterPath }}') center center / cover no-repeat;
+        min-height: 450px;
+        color: #fff;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 6px 32px rgba(0,0,0,0.5);
+    }
+    .movie-banner::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(25, 15, 15, 0.7);
+        z-index: 1;
+    }
+    .movie-poster {
+        max-width: 260px;
+        border-radius: 10px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.7);
+        position: relative;
+        z-index: 2;
+    }
+    .movie-info-panel {
+        position: relative;
+        z-index: 2;
+        padding: 30px 40px;
+        background: rgba(30, 20, 20, 0.8);
+        border-radius: 15px;
+        margin-left: -60px;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.4);
+    }
+    .movie-score {
+        font-size: 1.6rem;
+        font-weight: bold;
+        color: #4fd18b;
+        background: #222;
+        border-radius: 50%;
+        width: 55px;
+        height: 55px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+    .movie-meta {
+        font-size: 1rem;
+        opacity: .85;
+    }
+    .movie-actions .btn {
+        margin-right: 10px;
+    }
+    .movie-quote {
+        font-style: italic;
+        opacity: .8;
+        margin-bottom: 1rem;
+    }
+    @media (max-width: 991px) {
+        .movie-info-panel { margin-left: 0; margin-top: 30px; }
+        .movie-banner { min-height: 700px; }
+    }
+</style>
+
+<div class="container my-5">
+    <div class="movie-banner row align-items-center p-4">
+        <div class="col-lg-4 text-center">
+            {% if movie.posterPath %}
+                <img src="https://image.tmdb.org/t/p/w500{{ movie.posterPath }}" alt="{{ movie.title }}" class="movie-poster mb-3">
+            {% endif %}
+        </div>
+        <div class="col-lg-8">
+            <div class="movie-info-panel">
+                <h1 class="mb-1">{{ movie.title }} <span class="text-secondary" style="font-size:1.4rem;">({{ movie.releaseDate|date('Y') }})</span></h1>
+                <div class="movie-meta mb-2">
+                    <span class="badge bg-secondary me-2">{{ movie.releaseDate|date('d/m/Y') }}</span>
+                    <span class="me-2">{{ movie.originalLanguage|upper }}</span>
+                    <span class="me-2">{{ movie.genreIds|join(', ') }}</span>
+                    <span class="me-2">{{ movie.video ? 'Vidéo' : '' }}</span>
+                    <span class="me-2">{{ movie.popularity|number_format(1) }} popularité</span>
+                    <span class="me-2">{{ movie.voteCount }} votes</span>
+                </div>
+                <div class="d-flex align-items-center mb-3">
+                    <div class="movie-score me-3">
+                        {{ movie.voteAverage|number_format(1) }}
+                    </div>
+                    <button class="btn btn-outline-light btn-sm me-2"><i class="bi bi-play-circle"></i> Bande-annonce</button>
+                    <button class="btn btn-outline-light btn-sm me-2"><i class="bi bi-heart"></i></button>
+                    <button class="btn btn-outline-light btn-sm"><i class="bi bi-bookmark"></i></button>
+                </div>
+                <div class="movie-quote mb-2">
+                    <span>Media Record</span>
+                </div>
+                <h5 class="mt-3 mb-1">Synopsis</h5>
+                <p>{{ movie.overview }}</p>
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <strong>Lori Evans Taylor</strong><br><span class="text-muted">Screenplay, Story</span>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Guy Busick</strong><br><span class="text-muted">Screenplay, Story</span>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <strong>Jeffrey Reddick</strong><br><span class="text-muted">Characters</span>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <strong>Zach Lipovsky</strong><br><span class="text-muted">Director</span>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <strong>Adam B. Stein</strong><br><span class="text-muted">Director</span>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <strong>Jon Watts</strong><br><span class="text-muted">Story</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="{{ path('app_search') }}" class="btn btn-secondary mt-4">Retour à la recherche</a>
+</div>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - Media Record{% endblock %}
+
+{% block body %}
+<div class="d-flex align-items-center justify-content-center min-vh-100" style="background: #23272b;">
+    <div class="card shadow-lg p-4 border-0" style="max-width: 400px; width: 100%; background: #23272b;">
+        <h2 class="text-center mb-4 text-white fw-bold">Connexion</h2>
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+    <form method="post" autocomplete="off">
+    <div class="mb-3">
+         <label for="inputEmail" class="form-label text-white">Adresse email</label>
+        <div class="input-group">
+            <span class="input-group-text bg-dark text-white border-0"><i class="bi bi-person"></i></span>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control bg-dark text-white border-0" required autofocus autocomplete="username">
+        </div>
+    </div>
+        <div class="mb-3">
+            <label for="inputPassword" class="form-label text-white">Mot de passe</label>
+            <div class="input-group">
+                <span class="input-group-text bg-dark text-white border-0"><i class="bi bi-lock"></i></span>
+                <input type="password" name="password" id="inputPassword" class="form-control bg-dark text-white border-0" required autocomplete="current-password">
+                <button type="button" class="btn btn-outline-secondary border-0" onclick="togglePassword()" tabindex="-1" style="background: #23272b;">
+                <i class="bi bi-eye" id="togglePwdIcon"></i>
+                </button>
+            </div>
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="remember_me" name="_remember_me">
+            <label class="form-check-label text-white" for="remember_me">Se souvenir de moi</label>
+        </div>
+    <!-- CSRF token obligatoire -->
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <button class="btn btn-primary w-100 mb-2 rounded-pill fw-bold" type="submit">Se connecter</button>
+    </form>
+        <div class="text-center mt-3">
+            <span class="text-muted">Pas encore de compte ?</span>
+            <a href="{{ path('app_register') }}" class="text-info">Inscription</a>
+        </div>
+    </div>
+</div>
+<style>
+    .card {
+        background: #23272b !important;
+        border-radius: 18px;
+    }
+    .form-control:focus {
+        background: #23272b;
+        color: #fff;
+        border-color: #6f42c1;
+        box-shadow: 0 0 0 0.15rem rgba(111,66,193,0.16);
+    }
+    .btn-primary {
+        background: linear-gradient(90deg,#6f42c1,#1ed5a9);
+        border: none;
+    }
+    .btn-primary:hover {
+        background: linear-gradient(90deg,#1ed5a9,#6f42c1);
+    }
+    .input-group-text {
+        border-radius: 50px 0 0 50px;
+    }
+</style>
+<script>
+function togglePassword() {
+    const pwd = document.getElementById('inputPassword');
+    const icon = document.getElementById('togglePwdIcon');
+    if (pwd.type === "password") {
+        pwd.type = "text";
+        icon.classList.remove('bi-eye');
+        icon.classList.add('bi-eye-slash');
+    } else {
+        pwd.type = "password";
+        icon.classList.remove('bi-eye-slash');
+        icon.classList.add('bi-eye');
+    }
+}
+</script>
+{% endblock %}

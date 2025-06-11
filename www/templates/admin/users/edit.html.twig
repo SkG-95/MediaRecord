@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier utilisateur{% endblock %}
+
+{% block body %}
+<div class="container py-5" style="max-width: 600px;">
+    <h2 class="mb-4 text-white fw-bold text-center">Modifier utilisateur</h2>
+    <div class="bg-dark rounded shadow p-4">
+        {{ form_start(form) }}
+            <div class="mb-3">
+                {{ form_label(form.username, null, {'label_attr': {'class': 'text-white'}}) }}
+                {{ form_widget(form.username, {'attr': {'class': 'form-control bg-dark text-white border-secondary'}}) }}
+                {{ form_errors(form.username) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.email, null, {'label_attr': {'class': 'text-white'}}) }}
+                {{ form_widget(form.email, {'attr': {'class': 'form-control bg-dark text-white border-secondary'}}) }}
+                {{ form_errors(form.email) }}
+            </div>
+            <div class="mb-3">
+                <label class="text-white mb-2">Rôles</label>
+                <div class="d-flex flex-row flex-wrap gap-4 align-items-center" id="roles-row">
+                    {# Affichage manuel des cases à cocher pour chaque choix #}
+                    {% for choice, label in form.roles.vars.choices %}
+                        <div class="form-check form-check-inline mb-0">
+                            {{ form_widget(form.roles[loop.index0], {
+                                'attr': {
+                                    'class': 'form-check-input'
+                                }
+                            }) }}
+                            {{ form_label(form.roles[loop.index0], label.label, {'label_attr': {'class': 'form-check-label text-white ms-2 mb-0'}}) }}
+                        </div>
+                    {% endfor %}
+                </div>
+                {{ form_errors(form.roles) }}
+            </div>
+            <button type="submit" class="btn btn-primary w-100 fw-bold rounded-pill">Enregistrer</button>
+        {{ form_end(form) }}
+        <a href="{{ path('admin_users_list') }}" class="btn btn-link mt-3 w-100 text-center text-info">Retour à la liste</a>
+    </div>
+</div>
+
+<style>
+    body {
+        background: #23272b;
+    }
+    .bg-dark {
+        background: #23272b !important;
+    }
+    .text-white {
+        color: #fff !important;
+    }
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid #6f42c1;
+    }
+    .form-control:focus {
+        background: #23272b;
+        color: #fff;
+        border-color: #1ed5a9;
+        box-shadow: 0 0 0 0.15rem rgba(30,213,169,0.16);
+    }
+    .btn-primary {
+        background: linear-gradient(90deg,#6f42c1,#1ed5a9);
+        border: none;
+    }
+    .btn-primary:hover {
+        background: linear-gradient(90deg,#1ed5a9,#6f42c1);
+    }
+    .form-check-inline {
+        margin-right: 2rem;
+    }
+    .form-check-input {
+        accent-color: #1ed5a9;
+        width: 1.2em;
+        height: 1.2em;
+        margin-top: 0;
+        margin-right: 0.5em;
+    }
+    .form-check-label {
+        margin-bottom: 0;
+        font-weight: normal;
+    }
+    .btn-link {
+        color: #1ed5a9;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .btn-link:hover {
+        color: #6f42c1;
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}

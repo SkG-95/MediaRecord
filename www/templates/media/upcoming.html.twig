@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Films à venir{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4">Films à venir</h1>
+    <div class="row">
+        {% for movie in movies %}
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    {% if movie.poster_path %}
+                        <img src="https://image.tmdb.org/t/p/w300{{ movie.poster_path }}" class="card-img-top" alt="{{ movie.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ movie.title }}</h5>
+                        <p class="card-text text-muted">{{ movie.release_date|date('d/m/Y') }}</p>
+                        <a href="{{ path('movie_show', {tmdbId: movie.id}) }}" class="btn btn-primary btn-sm">Voir les détails</a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-info">Aucun film à venir trouvé.</div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

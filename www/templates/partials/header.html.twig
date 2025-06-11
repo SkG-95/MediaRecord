@@ -1,0 +1,169 @@
+{# templates/partials/header.html.twig #}
+<style>
+    .navbar-sticky {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1030;
+        background: #fff !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+        transition: background 0.2s;
+    }
+    .navbar-brand img {
+        height: 64px;
+        max-height: 72px;
+        margin-right: 16px;
+        transition: transform 0.15s;
+    }
+    .navbar-brand img:hover {
+        transform: scale(1.05);
+    }
+    .nav-link, .navbar-text {
+        color: #23272b !important;        /* Gris foncé */
+        font-weight: 500;
+        font-size: 1.08rem;
+        margin-right: 1.3em;
+        transition: color 0.15s;
+    }
+    .nav-link.active, .nav-link:focus, .nav-link:hover {
+        color: #6f42c1 !important;        /* Violet hover */
+    }
+    .navbar-icons .icon-btn,
+    .navbar-icons .search-btn {
+        background: none;
+        border: none;
+        color: #23272b !important;        /* Gris foncé */
+        font-size: 1.25rem;
+        margin-right: 1em;
+        position: relative;
+        top: 2px;
+        transition: color 0.15s;
+    }
+    .navbar-icons .icon-btn:hover,
+    .navbar-icons .search-btn:hover {
+        color: #6f42c1 !important;        /* Violet hover */
+    }
+    .navbar-icons .lang-btn {
+        border: 1.5px solid #23272b;
+        border-radius: 6px;
+        padding: 0 0.5em;
+        font-size: 1.05rem;
+        background: #fff;
+        color: #23272b !important;
+        margin-right: 1em;
+        transition: border-color 0.15s, color 0.15s;
+    }
+    .navbar-icons .lang-btn:hover {
+        color: #6f42c1 !important;
+        border-color: #6f42c1;
+    }
+    .navbar-icons .notif-btn {
+        font-size: 1.2rem;
+        margin-right: 1em;
+    }
+    .navbar-icons .avatar {
+        width: 32px;
+        height: 32px;
+        background: #e9ecef;
+        color: #23272b !important;
+        font-weight: bold;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1em;
+        font-size: 1.1rem;
+        transition: background 0.15s, color 0.15s;
+    }
+    .navbar-icons .avatar:hover {
+        background: #6f42c1;
+        color: #fff !important;
+    }
+</style>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white py-2 shadow-sm navbar-sticky">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ path('app_home') }}">
+            <img src="{{ asset('images/Logo-MediaRecord.jpg') }}" alt="Media Record" height="64" class="d-inline-block align-middle" style="margin-right:16px;">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="filmsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Films
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="filmsDropdown">
+                        <li><a class="dropdown-item" href="{{ path('app_upcoming') }}">À venir</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_popular') }}">Populaire</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_top_rated') }}">Les mieux évalués</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Émissions télévisées</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Artistes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Plus</a>
+                </li>
+            </ul>
+            <div class="d-flex align-items-center navbar-icons">
+                <button class="icon-btn" title="Ajouter"><i class="bi bi-plus-lg"></i></button>
+                <button class="lang-btn" title="Langue">FR</button>
+                <button class="icon-btn notif-btn" title="Notifications"><i class="bi bi-bell"></i></button>
+                <a href="{{ path('app_search') }}" class="search-btn" title="Recherche">
+                    <i class="bi bi-search"></i>
+                </a>
+                {# Burger menu dropdown #}
+                <div class="dropdown">
+                    <button class="icon-btn dropdown-toggle" type="button" id="burgerMenu" data-bs-toggle="dropdown" aria-expanded="false" title="Menu">
+                        <i class="bi bi-list" style="font-size:2rem;"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="burgerMenu">
+                    {% if app.user %}
+                    <li>
+                        <a class="dropdown-item" href="{{ path('profil') }}">
+                            <i class="bi bi-person-circle me-2"></i> Profil
+                        </a>
+                    </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li>
+                        <a class="dropdown-item" href="{{ path('admin_users_list') }}">
+                            <i class="bi bi-speedometer2 me-2"></i> Administration
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{{ path('admin_logs') }}">
+                            <i class="bi bi-journal-text me-2"></i> Logs
+                        </a>
+                    </li>
+            {% endif %}
+                    <li>
+                        <a class="dropdown-item" href="{{ path('app_logout') }}">
+                            <i class="bi bi-box-arrow-right me-2"></i> Déconnexion
+                        </a>
+                    </li>
+            {% else %}
+                    <li>
+                        <a class="dropdown-item" href="{{ path('app_login') }}">
+                            <i class="bi bi-box-arrow-in-right me-2"></i> Se connecter
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{{ path('app_register') }}">
+                            <i class="bi bi-person-plus me-2"></i> S'inscrire
+                        </a>
+                    </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

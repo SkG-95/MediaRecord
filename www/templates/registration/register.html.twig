@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription - Media Record{% endblock %}
+
+{% block body %}
+<div class="d-flex align-items-center justify-content-center min-vh-100" style="background: #23272b;">
+    <div class="card shadow-lg p-4 border-0" style="max-width: 400px; width: 100%; background: #23272b;">
+        <h2 class="text-center mb-4 text-white fw-bold">Inscription</h2>
+        {{ form_errors(registrationForm) }}
+        {{ form_start(registrationForm) }}
+            <div class="mb-3">
+                {{ form_label(registrationForm.username, 'Nom d\'utilisateur', {'label_attr': {'class': 'text-white'}}) }}
+                <div class="input-group">
+                    <span class="input-group-text bg-dark text-white border-0"><i class="bi bi-person"></i></span>
+                    {{ form_widget(registrationForm.username, {'attr': {'class': 'form-control bg-dark text-white border-0'}}) }}
+                </div>
+                {{ form_errors(registrationForm.username) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(registrationForm.email, 'Adresse email', {'label_attr': {'class': 'text-white'}}) }}
+                <div class="input-group">
+                    <span class="input-group-text bg-dark text-white border-0"><i class="bi bi-envelope"></i></span>
+                    {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control bg-dark text-white border-0'}}) }}
+                </div>
+                {{ form_errors(registrationForm.email) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(registrationForm.plainPassword, 'Mot de passe', {'label_attr': {'class': 'text-white'}}) }}
+                <div class="input-group">
+                    <span class="input-group-text bg-dark text-white border-0"><i class="bi bi-lock"></i></span>
+                    {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control bg-dark text-white border-0', 'id': 'registerPassword'}}) }}
+                    <button type="button" class="btn btn-outline-secondary border-0" onclick="toggleRegisterPassword()" tabindex="-1" style="background: #23272b;">
+                        <i class="bi bi-eye" id="toggleRegisterPwdIcon"></i>
+                    </button>
+                </div>
+                {{ form_errors(registrationForm.plainPassword) }}
+            </div>
+            <div class="mb-3">
+                {{ form_row(registrationForm.agreeTerms, {'label_attr': {'class': 'text-white'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_row(registrationForm.captcha) }}
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mb-2 rounded-pill fw-bold">Créer mon compte</button>
+        {{ form_end(registrationForm) }}
+        <div class="text-center mt-3">
+            <span class="text-muted">Déjà inscrit ?</span>
+            <a href="{{ path('app_login') }}" class="text-info">Connexion</a>
+        </div>
+    </div>
+</div>
+<style>
+    .card {
+        background: #23272b !important;
+        border-radius: 18px;
+    }
+    .form-control:focus {
+        background: #23272b;
+        color: #fff;
+        border-color: #6f42c1;
+        box-shadow: 0 0 0 0.15rem rgba(111,66,193,0.16);
+    }
+    .btn-primary {
+        background: linear-gradient(90deg,#6f42c1,#1ed5a9);
+        border: none;
+    }
+    .btn-primary:hover {
+        background: linear-gradient(90deg,#1ed5a9,#6f42c1);
+    }
+    .input-group-text {
+        border-radius: 50px 0 0 50px;
+    }
+</style>
+<script>
+function toggleRegisterPassword() {
+    const pwd = document.getElementById('registerPassword');
+    const icon = document.getElementById('toggleRegisterPwdIcon');
+    if (pwd.type === "password") {
+        pwd.type = "text";
+        icon.classList.remove('bi-eye');
+        icon.classList.add('bi-eye-slash');
+    } else {
+        pwd.type = "password";
+        icon.classList.remove('bi-eye-slash');
+        icon.classList.add('bi-eye');
+    }
+}
+</script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil - Media Record{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-6">
+            <div class="card shadow-lg p-4 border-0" style="background: #23272b;">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="avatar bg-light text-dark me-3" style="width:70px; height:70px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2rem;">
+                        <i class="bi bi-person-circle"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-white mb-0">{{ user.username }}</h2>
+                        <div class="text-muted">{{ user.email }}</div>
+                    </div>
+                </div>
+                <hr class="bg-secondary">
+                <h5 class="text-white mb-3">Informations du compte</h5>
+                <ul class="list-group list-group-flush mb-4">
+                    <li class="list-group-item bg-transparent text-white">
+                        <strong>Nom d'utilisateur :</strong> {{ user.username }}
+                    </li>
+                    <li class="list-group-item bg-transparent text-white">
+                        <strong>Email :</strong> {{ user.email }}
+                    </li>
+                </ul>
+                <a href="#" class="btn btn-outline-primary rounded-pill w-100 mb-2">Modifier mon profil</a>
+                <a href="{{ path('app_logout') }}" class="btn btn-outline-danger rounded-pill w-100">Se déconnecter</a>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .card {
+        background: #23272b !important;
+        border-radius: 18px;
+    }
+    .btn-outline-primary {
+        border-color: #6f42c1;
+        color: #6f42c1;
+    }
+    .btn-outline-primary:hover {
+        background: #6f42c1;
+        color: #fff;
+    }
+    .btn-outline-danger {
+        border-color: #e74c3c;
+        color: #e74c3c;
+    }
+    .btn-outline-danger:hover {
+        background: #e74c3c;
+        color: #fff;
+    }
+</style>
+{% endblock %}
