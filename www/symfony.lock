@@ -60,6 +60,9 @@
             "config/packages/google_recaptcha.yaml"
         ]
     },
+    "nakato53/symfony-vercel-bundle": {
+        "version": "0.5"
+    },
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {
