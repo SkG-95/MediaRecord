@@ -31,3 +31,7 @@ phpstan.neon
 
 # Autres fichiers temporaires
 /build/
+.env
+.env.local
+www/.env
+www/.env.local
